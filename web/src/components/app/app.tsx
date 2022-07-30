@@ -28,8 +28,10 @@ export const App = component$(() => {
         })}
       </select>
       {state.selected.content && (
-        <section>
-          <button onClick$={() => navigator.clipboard.writeText(state.selected.content)}>Copy to clipboard</button>
+        <section class="gitignore-container">
+          <button class="copy-to-clipboard" onClick$={() => navigator.clipboard.writeText(state.selected.content)}>
+            📋
+          </button>
           <pre class="gitignore-content">{state.selected.content}</pre>
         </section>
       )}
