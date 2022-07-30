@@ -3,6 +3,8 @@
  */
  body {
   font-size: 16px;
+  width: 380px;
+  margin: 0 auto;
  }
 
 .gitignore-container {
@@ -14,6 +16,7 @@
   font-size: 0.7rem;
   background-color: #f5f5f5;
   color: #333333;
+  white-space: pre-wrap;
 }
 
 .copy-to-clipboard {
@@ -28,4 +31,44 @@
   border-radius: 6px;
   color: #333333;
   cursor: pointer;
+}
+.search-box {
+  position: relative;
+  width: 100%;
+  box-sizing: content-box;
+}
+.search-box input {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.5rem;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  /* box-shadow: 0 0 44px 12px rgba(0,0,0,0.3); */
+}
+.search-results {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background: #f3f3f3;
+  border: 1px solid #000;
+  boder-top: none;
+}
+.search-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+}
+.search-results button {
+  display: block;
+  background: none;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  padding: 1rem;
+}
+.search-results button:hover {
+  background-color: #e3e3e3;
 }

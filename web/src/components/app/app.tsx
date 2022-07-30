@@ -1,7 +1,7 @@
-import { component$, Host, useStore, useServerMount$ } from '@builder.io/qwik';
+import { component$, Host, useStore, useServerMount$, useClientEffect$ } from '@builder.io/qwik';
 
 export const App = component$(() => {
-  const state = useStore({ data: [], selected: { name:'', content: ''}})
+  const state = useStore({ data: [], selected: { name:'', content: ''}, searchTerm: ''})
   
   useServerMount$(async () => {
     const response = await fetch('http://localhost:3000');
@@ -13,20 +13,40 @@ export const App = component$(() => {
   return (
     <Host>
       <h1>.gitignore</h1>
-      <select
-        preventdefault:click
-        onChange$={(event) => {
-          state.selected = {
-            name: event.target.value,
-            content: state.data.find((item) => item.name === event.target.value).content,
-          }
-          console.log(event.target.value)
-        }}
-      >
-        {state.data.map((item) => {
-          return <option value={item.name}>{item.name}</option>;
-        })}
-      </select>
+      <div class="search-box">
+        <div class="search-input">
+          <input
+            name="search_term"
+            onInput$={(event) => {            
+              state.searchTerm = event.target.value;
+            }}
+            value={state.searchTerm}
+            placeholder="Search for a .gitignore template"
+          />
+        </div>
+        { state.searchTerm && (
+          <div class="search-results">
+            <ul>
+              {state.data.filter((item) => item.name.toLowerCase().includes(state.searchTerm.toLowerCase()) ).map((item) => (
+                <li>
+                  <button
+                    onClick$={() => {
+                      console.log(item);
+                      state.selected = item;
+                      state.searchTerm = '';
+                    }}
+                  >
+                    {item.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+
+      {state.selected.name && <h3>{state.selected.name}</h3>}
+
       {state.selected.content && (
         <section class="gitignore-container">
           <button class="copy-to-clipboard" onClick$={() => navigator.clipboard.writeText(state.selected.content)}>
