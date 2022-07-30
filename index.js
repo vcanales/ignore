@@ -6,8 +6,7 @@ import fastifyStatic from '@fastify/static';
 const fastify = Fastify({ logger: true });
 
 fastify.register(fastifyStatic, {
-  root: path.resolve('public'),
-  prefix: '/public/',
+  root: path.resolve('web', 'public'),
 });
 
 async function list() {
