@@ -27,7 +27,12 @@ export const App = component$(() => {
           return <option value={item.name}>{item.name}</option>;
         })}
       </select>
-      <pre class="gitignore-content">{state.selected.content}</pre>
+      {state.selected.content && (
+        <section>
+          <button onClick$={() => navigator.clipboard.writeText(state.selected.content)}>Copy to clipboard</button>
+          <pre class="gitignore-content">{state.selected.content}</pre>
+        </section>
+      )}
     </Host>
   );
 });
