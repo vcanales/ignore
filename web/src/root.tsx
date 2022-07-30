@@ -7,7 +7,7 @@ export default () => {
     <html>
       <head>
         <meta charSet="utf-8" />
-        <title>Qwik Blank App</title>
+        <title>.gitignore</title>
       </head>
       <body>
         <App />

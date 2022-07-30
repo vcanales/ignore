@@ -5,7 +5,23 @@ import Fastify from 'fastify';
 const fastify = Fastify({ logger: true });
 
 async function list() {
-  return fs.readdir(path.resolve('gitignore'));
+  const files = await fs.readdir(path.resolve('gitignore'));
+  const data = Promise.all(
+    files
+      .filter((file) => file.endsWith('.gitignore'))
+      .map(async (file) => {
+        const content = await fs.readFile(
+          path.resolve('gitignore', file),
+          'utf8'
+        );
+        return {
+          name: file.replace('.gitignore', ''),
+          content,
+        };
+      })
+  );
+
+  return data;
 }
 
 fastify.get('/', async () => {
