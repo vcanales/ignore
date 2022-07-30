@@ -5,11 +5,10 @@ import Fastify from 'fastify';
 const fastify = Fastify({ logger: true });
 
 async function list() {
-  const dirs = await fs.readdir(path.resolve('gitignore'));
-  return dirs;
+  return fs.readdir(path.resolve('gitignore'));
 }
 
-fastify.get('/api', async () => {
+fastify.get('/', async () => {
   const data = await list();
 
   return { data };
