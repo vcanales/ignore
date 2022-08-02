@@ -1,5 +1,6 @@
 import express from 'express';
 import useragent from 'express-useragent';
+import fetch from 'isomorphic-unfetch';
 import { join } from 'path';
 import { fileURLToPath } from 'url';
 import render from './entry.ssr';
@@ -36,8 +37,26 @@ app.use(express.static(join(__dirname, '..', 'dist'), { index: false }));
  * Server-Side Render Qwik application
  */
 app.get('/*', async (req, res, next) => {
-  if (req.useragent.source.includes('curl')) {
-    return res.send('curl requests coming soon');
+  if (!req.useragent.isBrowser) {
+    const tech = req.params[0];
+
+    if (!tech) {
+      // handle bad request
+      return res.status(400).send('Bad Request');
+    }
+
+    // @todo: read files straight from the directory. abstract file reading function from api.
+    const response = await fetch('http://localhost:3000');
+    if (response.ok) {
+      const { data } = await response.json();
+      const gitignoreFile = data.find(item => item.name.toLowerCase() === tech.toLowerCase());
+      if (gitignoreFile) {
+        return res.send(gitignoreFile.content);
+      }
+      return res.status(404).send('Not found');
+    }
+
+    return res.status(500).send('Internal server error');
   }
   try {
     // Render the Root component to a string
