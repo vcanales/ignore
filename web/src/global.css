@@ -53,7 +53,7 @@
   z-index: 2;
   background: #f3f3f3;
   border: 1px solid #000;
-  boder-top: none;
+  border-top: none;
 }
 .search-results ul {
   list-style: none;

@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  website:
+    container_name: gitignore-website
+    build: .
+    restart: on-failure
+    ports:
+      - "8080:8080"
+      - "3000:3000"
+    volumes:
+      - .:/usr/app/
+      - node_modules:/usr/app/node_modules
+    environment:
+      - QWIK_LOADER_DEFAULT_DEBUG=true
+      - QWIK_LOADER_OPTIMIZE_MINIFIED=true
+      - QWIK_LOADER_OPTIMIZE_DEBUG=true
+  nginx:
+    container_name: gitignore-nginx
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx:/var/log/nginx
+    depends_on:
+      - website
+volumes:
+  node_modules:  

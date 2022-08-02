@@ -46,6 +46,9 @@ app.get('/*', async (req, res, next) => {
   } catch (e) {
     // Error while server-side rendering
     next(e);
+  } finally {
+    // Close the stream
+    res.end();
   }
 });
 

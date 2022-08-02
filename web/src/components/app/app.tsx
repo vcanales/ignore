@@ -1,13 +1,20 @@
-import { component$, Host, useStore, useServerMount$, useClientEffect$ } from '@builder.io/qwik';
+import fetch from 'isomorphic-unfetch';
+import { component$, Host, useStore, useServerMount$ } from '@builder.io/qwik';
 
 export const App = component$(() => {
   const state = useStore({ data: [], selected: { name:'', content: ''}, searchTerm: ''})
   
   useServerMount$(async () => {
-    const response = await fetch('http://localhost:3000');
-    const { data } = await response.json();
+    try {
+      const response = await fetch('http://localhost:3000');
 
-    state.data = data;
+      if (response.ok) {
+        const { data } = await response.json();
+        state.data = data;
+      }
+    } catch (e) {
+      // console.error(e);
+    }
   });
 
   return (
@@ -31,7 +38,6 @@ export const App = component$(() => {
                 <li>
                   <button
                     onClick$={() => {
-                      console.log(item);
                       state.selected = item;
                       state.searchTerm = '';
                     }}
