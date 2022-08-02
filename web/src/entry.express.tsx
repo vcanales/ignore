@@ -1,4 +1,5 @@
 import express from 'express';
+import useragent from 'express-useragent';
 import { join } from 'path';
 import { fileURLToPath } from 'url';
 import render from './entry.ssr';
@@ -10,6 +11,9 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
  * https://expressjs.com/
  */
 const app = express();
+
+/** Add useragent middleware */
+app.use(useragent.express());
 
 /**
  * Serve static client build files,
@@ -32,6 +36,9 @@ app.use(express.static(join(__dirname, '..', 'dist'), { index: false }));
  * Server-Side Render Qwik application
  */
 app.get('/*', async (req, res, next) => {
+  if (req.useragent.source.includes('curl')) {
+    return res.send('curl requests coming soon');
+  }
   try {
     // Render the Root component to a string
     const result = await render({

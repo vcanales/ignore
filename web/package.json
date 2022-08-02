@@ -20,6 +20,7 @@
     "@builder.io/qwik": "0.0.39",
     "@types/eslint": "8.4.5",
     "@types/express": "4.17.13",
+    "@types/express-useragent": "^1.0.2",
     "@types/node": "latest",
     "@typescript-eslint/eslint-plugin": "5.30.7",
     "@typescript-eslint/parser": "5.30.7",
@@ -39,6 +40,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "express-useragent": "^1.0.15",
     "isomorphic-unfetch": "^3.1.0"
   }
 }
