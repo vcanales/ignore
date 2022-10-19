@@ -1,6 +1,7 @@
 name = "gitignore"
 compatibility_date = "2022-10-19"
 main = "./src/index.js"
+route = "https://ignore.dev/*"
 
 [site]
 bucket = "./dist"

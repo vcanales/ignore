@@ -1,5 +1,9 @@
 import data from "../data.json";
 
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text);
+}
+
 (function init() {
   const datalist = document.getElementById("techs");
   const searchInput = document.getElementById("search-input");
@@ -24,6 +28,15 @@ import data from "../data.json";
       const { name, content } = filteredData[0];
       const h2 = document.createElement("h2");
       const pre = document.createElement("pre");
+      const copyButton = document.createElement("button");
+
+      copyButton.innerText = "Copy to Clipboard";
+      copyButton.addEventListener("click", () => {
+        copyToClipboard(content);
+      });
+      copyButton.id = "copy-button";
+
+      results.appendChild(copyButton);
 
       h2.textContent = name;
       h2.id = "filename";
