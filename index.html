@@ -26,7 +26,15 @@
 
   <main>
     <h1>.gitignore</h1>
-    <p>Retrieve a regularly updated list of .gitignore templates <a href="https://github.com/github/gitignore" target="_black">available on GitHub.</a></p>
+    <p>Retrieve a regularly updated list of .gitignore templates <a href="https://github.com/github/gitignore" target="_blank">available on GitHub.</a></p>
+    <p>Enter a language or framework below to generate a .gitignore file.</p>
+
+    <input id="search-input" list="techs" type="text" name="language" placeholder="Language or Framework">
+    <datalist id="techs">
+      <option>-- choose an option</option>
+    </datalist>
+    <section id="result">
+    </section>
   </main>
 
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
