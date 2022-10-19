@@ -12,6 +12,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.4"
+    "@cloudflare/kv-asset-handler": "^0.2.0",
+    "@cloudflare/workers-types": "^3.17.0",
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^4.8.4",
+    "wrangler": "^2.1.12"
   }
 }
