@@ -26,7 +26,7 @@ git add .
 git commit -m "Deploy version $(node -p "require('./package.json').version")"
 
 # Ask if changes should be pushed to the remote repository.
-read -p "Do you want to push the changes to the remote repository? (y/n) \n" -n 1 -r
+read -p "Do you want to push the changes to the remote repository? (y/n) " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   git push
 fi
