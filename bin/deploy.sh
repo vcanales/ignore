@@ -33,5 +33,4 @@ fi
 
 echo "Deploying version $(node -p "require('./package.json').version")"
 
-npm run deploy
-
+wrangler publish
